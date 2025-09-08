@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_08_200526) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_08_224944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
 
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "location_status", ["pending", "updated"]
+
+  create_table "locations", force: :cascade do |t|
+    t.enum "status", default: "pending", null: false, enum_type: "location_status"
+    t.string "identifier", null: false
+    t.geometry "lonlat", limit: {:srid=>0, :type=>"st_point"}
+    t.datetime "refreshed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identifier"], name: "index_locations_on_identifier"
+    t.index ["lonlat"], name: "index_locations_on_lonlat", using: :gist
+  end
 end
