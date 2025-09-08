@@ -8,7 +8,9 @@ RSpec.describe Location, type: :model do
       let(:client_stub) { double('Client', search: { latitude: 37.419, longitude: 122.075 }) }
 
       it 'saves the matching geolocation data' do
-        expect { location.add_geolocation!(client: client_stub) }.to(change { location.lonlat })
+        expect { location.add_geolocation!(client: client_stub) }.to change { location.lonlat }
+          .and change { location.status }.from('pending').to('updated')
+
         expect(location.lonlat).to be_a RGeo::Geos::CAPIPointImpl # change if PostGIS adapter implementation changes
       end
     end
