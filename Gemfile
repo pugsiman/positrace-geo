@@ -32,6 +32,7 @@ gem 'activerecord-postgis-adapter'
 gem 'http'
 
 group :development, :test do
+  gem 'dotenv'
   gem 'factory_bot_rails'
   gem 'pry-byebug'
   gem 'rspec-rails'

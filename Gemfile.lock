@@ -359,6 +359,7 @@ DEPENDENCIES
   activerecord-postgis-adapter
   bootsnap
   brakeman
+  dotenv
   factory_bot_rails
   http
   kamal
