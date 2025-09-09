@@ -9,10 +9,12 @@
   
 To test on a local development server:
 
-1) Add an .env file at the root of the project with this inside `IPSTACK_API_KEY=1608c7bd2638ea18112214bc68a903c4` (or whatever key you want)
-2) Set up the database `rails db:create db:migrate db:seed` (seed will create a user for you)
-3) To get your credentials `rails c` and then `User.last.api_key` (or create your own)
-4) Start a server: `rails s`
+1) git clone project
+2) `bundle install`
+3) Add an .env file at the root of the project with this inside `IPSTACK_API_KEY=1608c7bd2638ea18112214bc68a903c4` (or whatever key you want)
+4) Set up the database `rails db:create db:migrate db:seed` (seed will create a user for you)
+5) To get your credentials `rails c` and then `User.last.api_key` (or create your own)
+6) Start a server: `rails s`
 
 
 `locations#create`
