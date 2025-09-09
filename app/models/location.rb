@@ -2,9 +2,12 @@ class Location < ApplicationRecord
   validates :identifier, uniqueness: true
 
   def update_geolocation!(client: IpstackClient)
+    # OPTIMIZE: realistically, if certain identifiers are hit a lot more than others
+    # we should implement with Redis a hot cache, with expiration in e.g. 1 day or however seems reasonable
+    #
     data = client.search(term: identifier)
     update!(lonlat: "POINT(#{data.fetch(:longitude)} #{data.fetch(:latitude)})", status: :updated)
-    # NOTE: alternatively, in high scale I want to assign to async background job rather than a blocking sync operation:
+    # OPTIMIZE: alternatively, in high scale I want to assign to async background job rather than a blocking sync operation:
     # AddGeolocationWorker.perform_async(identifier)
     #
     # class AddGeolocationWorker
