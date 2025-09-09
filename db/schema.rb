@@ -22,19 +22,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_09_045126) do
   create_table "locations", force: :cascade do |t|
     t.enum "status", default: "pending", null: false, enum_type: "location_status"
     t.string "identifier", null: false
-    t.geometry "lonlat", limit: {:srid=>0, :type=>"st_point"}
-    t.datetime "refreshed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["identifier"], name: "index_locations_on_identifier"
+    t.geometry "lonlat", limit: {:srid=>0, :type=>"st_point"}
+    t.datetime "refreshed_at"
+    t.index ["identifier"], name: "index_locations_on_identifier", unique: true
     t.index ["lonlat"], name: "index_locations_on_lonlat", using: :gist
   end
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
-    t.string "api_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["api_key"], name: "index_users_on_api_key"
+    t.string "api_key"
+    t.index ["api_key"], name: "index_users_on_api_key", unique: true
   end
 end
