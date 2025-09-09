@@ -14,7 +14,7 @@ class Api::V1::LocationsController < ApplicationController
   def destroy
     location = Location.find_by!(identifier: locations_params.fetch(:identifier))
     location.destroy!
-    render json: location, status: 200
+    head :no_content
   end
 
   private
