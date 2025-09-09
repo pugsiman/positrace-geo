@@ -30,6 +30,7 @@ gem 'rack-cors'
 
 gem 'activerecord-postgis-adapter'
 gem 'http'
+gem 'jsonapi-serializer'
 
 group :development, :test do
   gem 'dotenv'

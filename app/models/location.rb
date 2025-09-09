@@ -1,9 +1,11 @@
 class Location < ApplicationRecord
   validates :identifier, uniqueness: true, presence: true
 
+  # API client through dependency injection for flexibility.
+  # Client should just implement `.search` and return {longitude:, latitude:} in response
   def update_geolocation!(client: IpstackClient)
-    # OPTIMIZE: realistically, if certain identifiers are hit a lot more than others
-    # we should implement with Redis a hot cache, with expiration in e.g. 1 day, or whatever seems reasonable
+    # OPTIMIZE: realistically, if certain identifiers are hit a lot more than others,
+    # we should implement with Redis a hot cache with expiration in e.g. 1 day, or whatever seems reasonable
     #
     data = client.search(term: identifier)
     update!(lonlat: "POINT(#{data.fetch(:longitude)} #{data.fetch(:latitude)})", status: :updated)
