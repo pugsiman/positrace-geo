@@ -1,7 +1,8 @@
 class Api::V1::LocationsController < ApplicationController
   def create
-    location = Location.find_or_create!(identifier: locations_params.fetch(:identifier))
+    location = Location.find_or_create_by(identifier: locations_params.fetch(:identifier))
     location.update_geolocation!
+
     render json: location, status: 201
   end
 
