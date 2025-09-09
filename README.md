@@ -20,21 +20,27 @@
 
 `#create`
 
-`POST api/v1/locations`
+```http
+POST /api/v1/locations
+```
 ```shell
 curl "localhost:3000/api/v1/locations/" -d '{"identifier":"www.yahoo.com"}' -X "POST" -H "Content-Type: application/json" -H "Authorization: Bearer yourtoken"
 ```
 
 `#show`
 
-`GET api/v1/locations/:identifier`
+```http
+GET /api/v1/locations/:identifier
+```
 ```shell
 curl "localhost:3000/api/v1/locations/www.yahoo.com" -H "Content-Type: application/json" -H "Authorization: Bearer yourtoken"
 ```
 
 `#destroy`
 
-`DELETE api/v1/locations/:identifie`
+```http
+DELETE /api/v1/locations/:identifier
+```
 ```shell
 curl "localhost:3000/api/v1/locations/www.yahoo.com" -X "DELETE" -H "Content-Type: application/json" -H "Authorization: Bearer yourtoken"
 ```
