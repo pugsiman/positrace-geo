@@ -5,12 +5,12 @@ class Api::V1::LocationsController < ApplicationController
     location = Location.find_or_create_by!(identifier: locations_params.fetch(:identifier))
     location.update_geolocation! # NOTE: We could skip this if location.lonlat already exists, but see comment in model
 
-    render json: LocationSerializer.new(location).serializable_hash.to_json, status: 201
+    render json: LocationSerializer.new(location).serializable_hash, status: 201
   end
 
   def show
     location = Location.find_by!(identifier: locations_params.fetch(:identifier))
-    render json: LocationSerializer.new(location).serializable_hash.to_json, status: 200
+    render json: LocationSerializer.new(location).serializable_hash, status: 200
   end
 
   def destroy
