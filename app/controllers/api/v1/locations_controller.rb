@@ -1,7 +1,7 @@
 class Api::V1::LocationsController < ApplicationController
   def create
-    location = Location.find_or_create_by(identifier: locations_params.fetch(:identifier))
-    location.update_geolocation!
+    location = Location.find_or_create_by!(identifier: locations_params.fetch(:identifier))
+    location.update_geolocation! # NOTE: We could skip this if location.lonlat already exists, but see comment in model
 
     render json: location, status: 201
   end
