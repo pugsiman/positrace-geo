@@ -18,15 +18,23 @@
 6) Start a server: `rails s`
 
 
-`locations#create`
+`#create`
+
+`POST api/v1/locations`
 ```shell
 curl "localhost:3000/api/v1/locations/" -d '{"identifier":"www.yahoo.com"}' -X "POST" -H "Content-Type: application/json" -H "Authorization: Bearer yourtoken"
 ```
-`locations#show`
+
+`#show`
+
+`GET api/v1/locations/:identifier`
 ```shell
 curl "localhost:3000/api/v1/locations/www.yahoo.com" -H "Content-Type: application/json" -H "Authorization: Bearer yourtoken"
 ```
-`locations#destroy`
+
+`#destroy`
+
+`DELETE api/v1/locations/:identifie`
 ```shell
 curl "localhost:3000/api/v1/locations/www.yahoo.com" -X "DELETE" -H "Content-Type: application/json" -H "Authorization: Bearer yourtoken"
 ```
