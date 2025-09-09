@@ -12,7 +12,8 @@ class Api::V1::LocationsController < ApplicationController
   end
 
   def destroy
-    location = Location.destroy_by(identifier: locations_params.fetch(:identifier))
+    location = Location.find_by!(identifier: locations_params.fetch(:identifier))
+    location.destroy!
     render json: location, status: 200
   end
 

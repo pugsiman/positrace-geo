@@ -16,6 +16,13 @@ RSpec.describe 'Api::V1::Locations', type: :request do
       end
     end
 
+    context 'with nonsense identifier' do
+      it 'returns an error' do
+        post '/api/1/locations', params: { identifier: '000000000' }, as: :json
+        expect(response).to have_http_status(404)
+      end
+    end
+
     context 'when record with the same identifier already exists' do
       let!(:location) { create(:location_with_url) }
 
@@ -50,6 +57,13 @@ RSpec.describe 'Api::V1::Locations', type: :request do
       delete "/api/v1/locations/#{location.identifier}"
       expect(response).to have_http_status(:success)
       expect { location.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    context 'when record does not exist with identifier' do
+      it 'returns an error' do
+        delete '/api/v1/locations/999.999.999.999'
+        expect(response).to have_http_status(404)
+      end
     end
   end
 end
