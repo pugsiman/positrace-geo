@@ -9,8 +9,8 @@ class Location < ApplicationRecord
   URL_REGEX = %r{^(?:https?://)?(?:www\.)?[a-zA-Z0-9\-.]+\.[a-zA-Z]{2,}(?:/[^\s]*)?$}
 
   # API client through dependency injection for flexibility.
-  # Client should implement `.search` and return {ip?:, longitude:, latitude:} in response
-  def update_geolocation!(client: IpstackClient)
+  # Client should implement `.search` and return {ip?:, longitude:, latitude:} in response, but see comments on possible further abstraction
+  def update_geolocation!(client: GeolocationClient.create)
     # OPTIMIZE: realistically, if certain identifiers are hit a lot more than others,
     # we should implement a hot cache with Redis using whatever expiration strategy is appropriate
     #
