@@ -1,6 +1,6 @@
 class Location < ApplicationRecord
   validates :identifier, uniqueness: true, presence: true
-  validate :identifier_url_or_ip
+  validate :valid_url_or_ip
 
   IP_REGEX = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
   URL_REGEX = %r{^(?:https?://)?(?:www\.)?[a-zA-Z0-9\-.]+\.[a-zA-Z]{2,}(?:/[^\s]*)?$}
@@ -30,7 +30,11 @@ class Location < ApplicationRecord
 
   private
 
-  def identifier_url_or_ip
+  # NOTE: Another possible approach here is to always resolve the URL to an IP address. but:
+  # 1) as my comment in routes.rb illustrates: this isn't necessarily good design (database could accumlate stale records)
+  # 2) it increases the latency per API hit
+  # Either way, it is worth discussing as this could be downstream a product decision
+  def valid_url_or_ip
     return if identifier =~ IP_REGEX || identifier =~ URL_REGEX
 
     errors.add(:identifier, 'Invalid')
