@@ -1,5 +1,9 @@
 class Location < ApplicationRecord
   validates :identifier, uniqueness: true, presence: true
+  validate :identifier_url_or_ip
+
+  IP_REGEX = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+  URL_REGEX = %r{^(?:https?://)?(?:www\.)?[a-zA-Z0-9\-.]+\.[a-zA-Z]{2,}(?:/[^\s]*)?$}
 
   # API client through dependency injection for flexibility.
   # Client should just implement `.search` and return {longitude:, latitude:} in response
@@ -22,5 +26,13 @@ class Location < ApplicationRecord
     # end
     #
     # We could also use a worker to batch them (e.g. every 100 identifiers) to save on requests
+  end
+
+  private
+
+  def identifier_url_or_ip
+    return if identifier =~ IP_REGEX || identifier =~ URL_REGEX
+
+    errors.add(:identifier, 'Invalid')
   end
 end
