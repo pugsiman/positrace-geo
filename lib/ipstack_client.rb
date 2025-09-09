@@ -20,6 +20,8 @@ class IpstackClient
       longitude: json.fetch('longitude')
     }
   rescue HTTP::Error => e
+    # NOTE: In theory, we would propagate this throgh something like GeoClient::Errors,
+    # then have appropriate error handling for network errors specifically
     Rails.logger.error "Network error: #{e.message}"
     raise e
   end
