@@ -10,7 +10,7 @@ class Location < ApplicationRecord
   # Client should just implement `.search` and return {longitude:, latitude:} in response
   def update_geolocation!(client: IpstackClient)
     # OPTIMIZE: realistically, if certain identifiers are hit a lot more than others,
-    # we should implement with Redis a hot cache with expiration in e.g. 1 day, or whatever seems reasonable
+    # we should implement with Redis a hot cache with whatever expiration strategy is appropriate
     #
     data = client.search(term: identifier)
     update!(lonlat: "POINT(#{data.fetch(:longitude)} #{data.fetch(:latitude)})", status: :updated)
@@ -26,7 +26,7 @@ class Location < ApplicationRecord
     #   end
     # end
     #
-    # We could also use a worker to batch them (e.g. every 100 identifiers) to save on requests
+    # We could also use a worker to batch them (e.g. every 100 identifiers), to save on requests
   end
 
   private
@@ -38,7 +38,7 @@ class Location < ApplicationRecord
   # NOTE: Another possible approach here is to always resolve the URL to an IP address. but:
   # 1) as my comment in routes.rb illustrates: this isn't necessarily good design (database could accumlate stale records)
   # 2) it increases the latency per API hit
-  # Either way, it is worth discussing as this could be downstream a product decision
+  # Either way, it is worth discussing as this could be downstream of a product decision
   def valid_url_or_ip
     return if identifier =~ IP_REGEX || identifier =~ URL_REGEX
 
