@@ -1,24 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Locations', type: :request do
+  let(:user) { create(:user) }
+  let(:headers) { { 'Authorization' => "Bearer #{user.api_key}" } }
+
   describe 'POST /locations', :vcr do
     context 'with url identifier' do
       it 'creates a location record with geolocation data' do
-        post '/api/v1/locations', params: { identifier: build(:location_with_url).identifier }, as: :json
+        post '/api/v1/locations', params: { identifier: build(:location_with_url).identifier }, headers: headers,
+                                  as: :json
         expect(response).to have_http_status(:created)
       end
     end
 
     context 'with IP identifier' do
       it 'creates a location record with geolocation data' do
-        post '/api/v1/locations', params: { identifier: build(:location_with_ip).identifier }, as: :json
+        post '/api/v1/locations', params: { identifier: build(:location_with_ip).identifier }, headers: headers,
+                                  as: :json
         expect(response).to have_http_status(:created)
       end
     end
 
     context 'with nonsense identifier' do
       it 'returns an error' do
-        post '/api/1/locations', params: { identifier: '000000000' }, as: :json
+        post '/api/1/locations', params: { identifier: '000000000' }, headers: headers, as: :json
         expect(response).to have_http_status(404)
       end
     end
@@ -27,7 +32,7 @@ RSpec.describe 'Api::V1::Locations', type: :request do
       let!(:location) { create(:location_with_url) }
 
       it 'updates the existing record' do
-        post '/api/v1/locations', params: { identifier: location.identifier }, as: :json
+        post '/api/v1/locations', params: { identifier: location.identifier }, headers: headers, as: :json
         expect(response).to have_http_status(201)
       end
     end
@@ -38,13 +43,13 @@ RSpec.describe 'Api::V1::Locations', type: :request do
       let!(:location) { create(:location_with_url) }
 
       it 'returns data about queried record' do
-        get "/api/v1/locations/#{location.identifier}", as: :json
+        get "/api/v1/locations/#{location.identifier}", headers: headers, as: :json
         expect(response).to have_http_status(:success)
       end
     end
     context 'with unknown record' do
       it 'returns an error' do
-        get '/api/v1/locations/non-existing-identifier'
+        get '/api/v1/locations/non-existing-identifier', headers: headers, as: :json
         expect(response).to have_http_status(404)
       end
     end
@@ -54,14 +59,14 @@ RSpec.describe 'Api::V1::Locations', type: :request do
     let!(:location) { create(:location_with_url) }
 
     it 'deletes the record by identifier' do
-      delete "/api/v1/locations/#{location.identifier}"
+      delete "/api/v1/locations/#{location.identifier}", headers: headers, as: :json
       expect(response).to have_http_status(:success)
       expect { location.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     context 'when record does not exist with identifier' do
       it 'returns an error' do
-        delete '/api/v1/locations/999.999.999.999'
+        delete '/api/v1/locations/999.999.999.999', headers: headers, as: :json
         expect(response).to have_http_status(404)
       end
     end
