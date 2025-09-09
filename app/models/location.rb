@@ -1,5 +1,5 @@
 class Location < ApplicationRecord
-  validates :identifier, uniqueness: true
+  validates :identifier, uniqueness: true, presence: true
 
   def update_geolocation!(client: IpstackClient)
     # OPTIMIZE: realistically, if certain identifiers are hit a lot more than others
