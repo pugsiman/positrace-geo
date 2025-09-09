@@ -1,4 +1,5 @@
 class Location < ApplicationRecord
+  before_create :format_identifier
   validates :identifier, uniqueness: true, presence: true
   validate :valid_url_or_ip
 
@@ -29,6 +30,10 @@ class Location < ApplicationRecord
   end
 
   private
+
+  def format_identifier
+    self.identifier = identifier.strip
+  end
 
   # NOTE: Another possible approach here is to always resolve the URL to an IP address. but:
   # 1) as my comment in routes.rb illustrates: this isn't necessarily good design (database could accumlate stale records)
