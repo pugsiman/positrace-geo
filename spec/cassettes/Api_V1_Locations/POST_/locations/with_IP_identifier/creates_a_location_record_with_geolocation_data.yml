@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.ipstack.com/162.158.146.166?access_key=1608c7bd2638ea18112214bc68a903c4
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      Connection:
+      - close
+      Host:
+      - api.ipstack.com
+      User-Agent:
+      - http.rb/5.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      X-Rate-Limit-Reset:
+      - '1757377262'
+      Date:
+      - Tue, 09 Sep 2025 00:21:01 GMT
+      X-Apilayer-Transaction-Id:
+      - b844c026-1303-4226-999f-8b39a2d189f6
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS
+      Access-Control-Allow-Headers:
+      - "*"
+      X-Rate-Limit:
+      - '0'
+      X-Rate-Limit-Remaining:
+      - '0'
+      X-Quota-Limit:
+      - '100'
+      X-Quota-Remaining:
+      - '99'
+      X-Increment-Usage:
+      - '1'
+      X-Request-Time:
+      - '0.096'
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"ip": "162.158.146.166", "type": "ipv4", "continent_code": "NA", "continent_name":
+        "North America", "country_code": "CA", "country_name": "Canada", "region_code":
+        "BC", "region_name": "British Columbia", "city": "Vancouver", "zip": "V5K
+        1A1", "latitude": 49.2752799987793, "longitude": -123.13249969482422, "msa":
+        null, "dma": null, "radius": "0", "ip_routing_type": "fixed", "connection_type":
+        "tx", "location": {"geoname_id": 6173331, "capital": "Ottawa", "languages":
+        [{"code": "en", "name": "English", "native": "English"}, {"code": "fr", "name":
+        "French", "native": "Fran\u00e7ais"}], "country_flag": "https://assets.ipstack.com/flags/ca.svg",
+        "country_flag_emoji": "\ud83c\udde8\ud83c\udde6", "country_flag_emoji_unicode":
+        "U+1F1E8 U+1F1E6", "calling_code": "1", "is_eu": false}}'
+  recorded_at: Tue, 09 Sep 2025 00:21:01 GMT
+recorded_with: VCR 6.3.1

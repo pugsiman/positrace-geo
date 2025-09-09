@@ -1,6 +1,4 @@
 class Api::V1::LocationsController < ApplicationController
-  respond_to :json
-
   def create
     location = Location.find_or_create!(identifier: locations_params.fetch(:identifier))
     location.update_geolocation!

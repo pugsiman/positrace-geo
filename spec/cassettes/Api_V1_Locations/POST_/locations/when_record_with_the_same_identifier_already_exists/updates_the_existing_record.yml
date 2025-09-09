@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.ipstack.com/www.google.com?access_key=1608c7bd2638ea18112214bc68a903c4
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    headers:
+      Connection:
+      - close
+      Host:
+      - api.ipstack.com
+      User-Agent:
+      - http.rb/5.3.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Tue, 09 Sep 2025 00:24:03 GMT
+      X-Apilayer-Transaction-Id:
+      - 3670d6c3-cf68-4fb9-ba1a-4d8b9a2629ef
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS
+      Access-Control-Allow-Headers:
+      - "*"
+      X-Rate-Limit:
+      - '0'
+      X-Rate-Limit-Remaining:
+      - '0'
+      X-Quota-Limit:
+      - '100'
+      X-Quota-Remaining:
+      - '97'
+      X-Increment-Usage:
+      - '1'
+      X-Request-Time:
+      - '0.296'
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"ip": "64.233.180.103", "type": "ipv4", "continent_code": "NA", "continent_name":
+        "North America", "country_code": "US", "country_name": "United States", "region_code":
+        "CA", "region_name": "California", "city": "Mountain View", "zip": "94041",
+        "latitude": 37.38801956176758, "longitude": -122.07431030273438, "msa": "41940",
+        "dma": "807", "radius": "0", "ip_routing_type": "fixed", "connection_type":
+        "ocx", "location": {"geoname_id": 7173909, "capital": "Washington D.C.", "languages":
+        [{"code": "en", "name": "English", "native": "English"}], "country_flag":
+        "https://assets.ipstack.com/flags/us.svg", "country_flag_emoji": "\ud83c\uddfa\ud83c\uddf8",
+        "country_flag_emoji_unicode": "U+1F1FA U+1F1F8", "calling_code": "1", "is_eu":
+        false}}'
+  recorded_at: Tue, 09 Sep 2025 00:24:03 GMT
+recorded_with: VCR 6.3.1
