@@ -1,4 +1,6 @@
 class Api::V1::LocationsController < ApplicationController
+  rescue_from Location::GeolocationError, with: :geolocation_error_response
+
   include BasicAuthentication
 
   def create
@@ -23,5 +25,9 @@ class Api::V1::LocationsController < ApplicationController
 
   def locations_params
     params.permit(:identifier)
+  end
+
+  def geolocation_error_response
+    render json: { error: 'Geolocation lookup failed' }, status: :unprocessable_entity
   end
 end
